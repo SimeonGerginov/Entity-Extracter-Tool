@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using Bytes2you.Validation;
+
 using EntityExtracterTool.Web.Models;
 using EntityExtracterTool.Web.Services.Contracts;
 
@@ -12,11 +14,15 @@ namespace EntityExtracterTool.Web.Services
 
         public EntityComparer(IEntityExtracter entityExtracter)
         {
+            Guard.WhenArgument(entityExtracter, "Entity Extracter").IsNull().Throw();
+
             this.entityExtracter = entityExtracter;
         }
 
         public void CompareEntities(EntityHolder entityHolder, string previousVersion, string currentVersion)
         {
+            Guard.WhenArgument(entityHolder, "Entity Holder").IsNull().Throw();
+
             var entitiesFromPreviousVersion = this.entityExtracter
                 .ExtractEntitiesFromSitefinity(previousVersion)
                 .ToList();

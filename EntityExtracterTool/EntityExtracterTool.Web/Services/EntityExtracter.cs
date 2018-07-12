@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
+using Bytes2you.Validation;
+
 using EntityExtracterTool.Web.Models;
 using EntityExtracterTool.Web.Services.Contracts;
 
@@ -16,6 +18,8 @@ namespace EntityExtracterTool.Web.Services
 
         public EntityExtracter(IAssemblyProvider assemblyProvider)
         {
+            Guard.WhenArgument(assemblyProvider, "Assembly Provider").IsNull().Throw();
+
             this.assemblyProvider = assemblyProvider;
         }
 
@@ -81,6 +85,8 @@ namespace EntityExtracterTool.Web.Services
 
         private Type[] GetTypesInAssembly(Assembly assembly)
         {
+            Guard.WhenArgument(assembly, "Assembly").IsNull().Throw();
+
             var types = assembly.GetTypes();
 
             return types;
@@ -88,6 +94,8 @@ namespace EntityExtracterTool.Web.Services
 
         private PropertyInfo[] GetPropertiesOfType(Type type)
         {
+            Guard.WhenArgument(type, "Type").IsNull().Throw();
+
             var properties = type.GetProperties();
 
             return properties;
