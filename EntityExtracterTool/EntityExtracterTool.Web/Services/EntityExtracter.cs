@@ -33,7 +33,7 @@ namespace EntityExtracterTool.Web.Services
             return entities;
         }
 
-        public IEnumerable<Entity> ExtractEntitiesFromAssembly(Assembly assembly)
+        private IEnumerable<Entity> ExtractEntitiesFromAssembly(Assembly assembly)
         {
             var entitiesOfAssembly = new List<Entity>();
             var types = this.GetTypesInAssembly(assembly);
@@ -49,7 +49,7 @@ namespace EntityExtracterTool.Web.Services
             return entitiesOfAssembly;
         }
 
-        public IEnumerable<Entity> ExtractEntitiesFromType(PropertyInfo[] properties)
+        private IEnumerable<Entity> ExtractEntitiesFromType(PropertyInfo[] properties)
         {
             var entites = new List<Entity>();
 
@@ -79,14 +79,14 @@ namespace EntityExtracterTool.Web.Services
             return entites;
         }
 
-        public Type[] GetTypesInAssembly(Assembly assembly)
+        private Type[] GetTypesInAssembly(Assembly assembly)
         {
             var types = assembly.GetTypes();
 
             return types;
         }
 
-        public PropertyInfo[] GetPropertiesOfType(Type type)
+        private PropertyInfo[] GetPropertiesOfType(Type type)
         {
             var properties = type.GetProperties();
 
