@@ -1,12 +1,18 @@
 ﻿@using EntityExtracterTool.Web.Models
+@using PagedList
+@using PagedList.Mvc
 
-@model IEnumerable<Entity>
+@model IPagedList<Entity>
 
 @{
     ViewBag.Title = "AddedEntities";
 }
 
 <h2 class="text-center">Entity Information</h2>
+
+<div class="text-center">
+    @Html.PagedListPager(Model, page => Url.Action("AddedEntities", new { page }))
+</div>
 
 <div class="row">
     <div class="col-md-6">
