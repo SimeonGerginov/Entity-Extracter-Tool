@@ -37,8 +37,7 @@ namespace EntityExtracterTool.Web.Services
 
             foreach (var entity in entitiesFromPreviousVersion)
             {
-                this.CheckIfEntityIsUpdated(entity, entitiesFromCurrentVersion, updatedEntities);
-                this.CheckIfEntityIsRemoved(entity, entitiesFromCurrentVersion, removedEntities);
+                this.CheckIfEntityIsUpdatedOrRemoved(entity, entitiesFromCurrentVersion, updatedEntities, removedEntities);
             }
 
             foreach (var entity in entitiesFromCurrentVersion)
@@ -47,36 +46,36 @@ namespace EntityExtracterTool.Web.Services
             }
         }
 
-        private void CheckIfEntityIsUpdated(Entity entity,
-            ICollection<Entity> entitiesFromCurrentVersion, ICollection<Entity> updatedEntities)
+        private void CheckIfEntityIsUpdatedOrRemoved(
+            Entity entity, 
+            List<Entity> entitiesFromCurrentVersion, 
+            ICollection<Entity> updatedEntities, 
+            ICollection<Entity> removedEntities)
         {
-            var entityFromCurrentVersion = entitiesFromCurrentVersion
-                .FirstOrDefault(e => e.Key == entity.Key && 
-                                     e.Value == entity.Value && 
-                                     e.Description == entity.Description);
+            var entityFromCurrentVersion = entitiesFromCurrentVersion.FirstOrDefault(e =>
+                e.Key == entity.Key &&
+                e.Value == entity.Value &&
+                e.Description == entity.Description);
 
             if (entityFromCurrentVersion != null)
             {
                 updatedEntities.Add(entityFromCurrentVersion);
+
+                entitiesFromCurrentVersion.RemoveAll(e =>
+                    e.Key == entityFromCurrentVersion.Key &&
+                    e.Value == entityFromCurrentVersion.Value &&
+                    e.Description == entityFromCurrentVersion.Description);
             }
-        }
-
-        private void CheckIfEntityIsRemoved(Entity entity,
-            ICollection<Entity> entitiesFromCurrentVersion, ICollection<Entity> removedEntities)
-        {
-            var entityFromCurrentVersion = entitiesFromCurrentVersion
-                .FirstOrDefault(e => e.Key == entity.Key &&
-                                     e.Value == entity.Value &&
-                                     e.Description == entity.Description);
-
-            if (entityFromCurrentVersion == null)
+            else
             {
                 removedEntities.Add(entity);
             }
         }
 
-        private void CheckIfEntityIsAdded(Entity entity,
-            ICollection<Entity> entitiesFromPreviousVersion, ICollection<Entity> addedEntities)
+        private void CheckIfEntityIsAdded(
+            Entity entity,
+            ICollection<Entity> entitiesFromPreviousVersion, 
+            ICollection<Entity> addedEntities)
         {
             var entityFromPreviousVersion = entitiesFromPreviousVersion
                 .FirstOrDefault(e => e.Key == entity.Key &&

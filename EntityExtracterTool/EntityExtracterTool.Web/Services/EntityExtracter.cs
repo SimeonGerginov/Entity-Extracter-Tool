@@ -30,34 +30,25 @@ namespace EntityExtracterTool.Web.Services
 
             foreach (var assembly in assemblies.Values)
             {
-                var entitiesOfAssembly = this.ExtractEntitiesFromAssembly(assembly);
-                entities.AddRange(entitiesOfAssembly);
+                this.ExtractEntitiesFromAssembly(assembly, entities);
             }
 
             return entities;
         }
 
-        private IEnumerable<Entity> ExtractEntitiesFromAssembly(Assembly assembly)
+        private void ExtractEntitiesFromAssembly(Assembly assembly, ICollection<Entity> entities)
         {
-            var entitiesOfAssembly = new List<Entity>();
-            var assemblyVersion = assembly.GetName().Version.ToString();
             var types = this.GetTypesInAssembly(assembly);
 
             foreach (var type in types)
             {
                 var properties = this.GetPropertiesOfType(type);
-                var entitiesOfType = this.ExtractEntitiesFromType(properties, assemblyVersion);
-
-                entitiesOfAssembly.AddRange(entitiesOfType);
+                this.ExtractEntitiesFromType(properties, entities);
             }
-
-            return entitiesOfAssembly;
         }
 
-        private IEnumerable<Entity> ExtractEntitiesFromType(PropertyInfo[] properties, string assemblyVersion)
+        private void ExtractEntitiesFromType(PropertyInfo[] properties, ICollection<Entity> entities)
         {
-            var entites = new List<Entity>();
-
             foreach (var property in properties)
             {
                 var attributeName = "ResourceEntry";
@@ -72,11 +63,9 @@ namespace EntityExtracterTool.Web.Services
 
                     this.SetEntityValues(entity, resource);
 
-                    entites.Add(entity);
+                    entities.Add(entity);
                 }
             }
-
-            return entites;
         }
 
         private void SetEntityValues(Entity entity, object resource)

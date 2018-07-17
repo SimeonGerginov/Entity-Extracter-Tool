@@ -21,10 +21,10 @@ namespace EntityExtracterTool.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            this.FillEntityHolder();
+            this.CompareEntities();
         }
 
-        private void FillEntityHolder()
+        private void CompareEntities()
         {
             var entityComparer = (IEntityComparer)DependencyResolver.Current.GetService(typeof(IEntityComparer));
 
