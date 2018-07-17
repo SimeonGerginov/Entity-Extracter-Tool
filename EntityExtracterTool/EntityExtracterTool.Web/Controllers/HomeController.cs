@@ -21,7 +21,9 @@ namespace EntityExtracterTool.Web.Controllers
 
             var addedEntities = entityHolder
                 .AddedEntities
-                .OrderByDescending(e => e.LastModified);
+                .OrderBy(e => e.TypeName)
+                .ThenByDescending(e => e.LastModified)
+                .AsEnumerable();
 
             var pageNumber = page ?? Constants.DefaultPage;
             var entitiesPerPage = addedEntities.ToPagedList(pageNumber, Constants.EntitiesPerPage);
@@ -35,7 +37,9 @@ namespace EntityExtracterTool.Web.Controllers
 
             var updatedEntities = entityHolder
                 .UpdatedEntities
-                .OrderByDescending(e => e.LastModified);
+                .OrderBy(e => e.TypeName)
+                .ThenByDescending(e => e.LastModified)
+                .AsEnumerable();
 
             var pageNumber = page ?? Constants.DefaultPage;
             var entitiesPerPage = updatedEntities.ToPagedList(pageNumber, Constants.EntitiesPerPage);
@@ -49,7 +53,9 @@ namespace EntityExtracterTool.Web.Controllers
 
             var removedEntities = entityHolder
                 .RemovedEntities
-                .OrderByDescending(e => e.LastModified);
+                .OrderBy(e => e.TypeName)
+                .ThenByDescending(e => e.LastModified)
+                .AsEnumerable();
 
             var pageNumber = page ?? Constants.DefaultPage;
             var entitiesPerPage = removedEntities.ToPagedList(pageNumber, Constants.EntitiesPerPage);

@@ -43,11 +43,12 @@ namespace EntityExtracterTool.Web.Services
             foreach (var type in types)
             {
                 var properties = this.GetPropertiesOfType(type);
-                this.ExtractEntitiesFromType(properties, entities);
+                var typeName = type.Name;
+                this.ExtractEntitiesFromType(properties, typeName, entities);
             }
         }
 
-        private void ExtractEntitiesFromType(PropertyInfo[] properties, ICollection<Entity> entities)
+        private void ExtractEntitiesFromType(PropertyInfo[] properties, string typeName, ICollection<Entity> entities)
         {
             foreach (var property in properties)
             {
@@ -59,7 +60,10 @@ namespace EntityExtracterTool.Web.Services
 
                 if (resource != null)
                 {
-                    var entity = new Entity();
+                    var entity = new Entity()
+                    {
+                        TypeName = typeName
+                    };
 
                     this.SetEntityValues(entity, resource);
 

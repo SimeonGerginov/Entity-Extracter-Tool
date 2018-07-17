@@ -19,6 +19,7 @@
         <h3>Added Entities</h3>
         <table class="table table-bordered">
             <tr>
+                <th class="text-center">Entity Class</th>
                 <th class="text-center">Entity Key</th>
                 <th class="text-center">Entity Value</th>
                 <th class="text-center">Entity Description</th>
@@ -27,16 +28,19 @@
             @foreach (var entity in Model)
             {
                 <tr>
-                    <td>
+                    <td class="text-center">
+                        @entity.TypeName
+                    </td>
+                    <td class="text-center">
                         @entity.Key
                     </td>
-                    <td>
-                        @entity.Value
+                    <td class="text-center">
+                        @Html.Raw(entity.Value)
                     </td>
-                    <td>
-                        @entity.Description
+                    <td class="text-center">
+                        @Html.Raw(entity.Description)
                     </td>
-                    <td>
+                    <td class="text-center">
                         @entity.LastModified
                     </td>
                 </tr>
