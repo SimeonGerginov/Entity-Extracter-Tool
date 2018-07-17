@@ -1,0 +1,50 @@
+﻿@using EntityExtracterTool.Web.Models
+@using PagedList
+@using PagedList.Mvc
+
+@model IPagedList<Entity>
+
+@{
+    ViewBag.Title = "AddedEntities";
+}
+
+<h2 class="text-center">Entity Information</h2>
+
+<div class="text-center">
+    @Html.PagedListPager(Model, page => Url.Action("AddedEntities", new { page }))
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>Added Entities</h3>
+        <table class="table table-bordered">
+            <tr>
+                <th class="text-center">Entity Class</th>
+                <th class="text-center">Entity Key</th>
+                <th class="text-center">Entity Value</th>
+                <th class="text-center">Entity Description</th>
+                <th class="text-center">Entity Last Modified</th>
+            </tr>
+            @foreach (var entity in Model)
+            {
+                <tr>
+                    <td class="text-center">
+                        @entity.TypeName
+                    </td>
+                    <td class="text-center">
+                        @entity.Key
+                    </td>
+                    <td class="text-center">
+                        @Html.Raw(entity.Value)
+                    </td>
+                    <td class="text-center">
+                        @Html.Raw(entity.Description)
+                    </td>
+                    <td class="text-center">
+                        @entity.LastModified
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

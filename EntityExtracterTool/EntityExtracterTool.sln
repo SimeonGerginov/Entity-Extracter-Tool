@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityExtracterTool.Sitefin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityExtracterTool.Sitefinity.10", "EntityExtracterTool.Sitefinity.10\EntityExtracterTool.Sitefinity.10.csproj", "{9339717F-3AD9-4603-BBDA-DBD2FA3EBA24}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityExtracterTool.Web", "EntityExtracterTool.Web\EntityExtracterTool.Web.csproj", "{AEEE9FB5-E022-4DC4-B1FB-847ADC0BEA81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9339717F-3AD9-4603-BBDA-DBD2FA3EBA24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9339717F-3AD9-4603-BBDA-DBD2FA3EBA24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9339717F-3AD9-4603-BBDA-DBD2FA3EBA24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEEE9FB5-E022-4DC4-B1FB-847ADC0BEA81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEEE9FB5-E022-4DC4-B1FB-847ADC0BEA81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEEE9FB5-E022-4DC4-B1FB-847ADC0BEA81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEEE9FB5-E022-4DC4-B1FB-847ADC0BEA81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
