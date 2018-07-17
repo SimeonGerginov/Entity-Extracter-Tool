@@ -68,15 +68,7 @@ namespace EntityExtracterTool.Web.Services
 
                 if (resource != null)
                 {
-                    var entity = new Entity()
-                    {
-                        AssemblyVersion = assemblyVersion,
-                        Name = property.Name,
-                        //Key = resource.Key,
-                        //Value = resource.Value,
-                        //Description = resource.Description,
-                        //LastModified = resource.LastModified
-                    };
+                    var entity = new Entity();
 
                     this.SetEntityValues(entity, resource);
 
@@ -120,7 +112,6 @@ namespace EntityExtracterTool.Web.Services
                     .GetTypes()
                     .Where(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(Resource)))
                     .ToArray();
-
             }
             catch (ReflectionTypeLoadException e)
             {

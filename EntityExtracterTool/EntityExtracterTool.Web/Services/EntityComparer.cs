@@ -2,7 +2,6 @@
 using System.Linq;
 
 using Bytes2you.Validation;
-
 using EntityExtracterTool.Web.Models;
 using EntityExtracterTool.Web.Services.Contracts;
 
@@ -50,21 +49,26 @@ namespace EntityExtracterTool.Web.Services
         private void CheckIfEntityIsUpdated(Entity entity,
             ICollection<Entity> entitiesFromCurrentVersion, ICollection<Entity> updatedEntities)
         {
-            if (entitiesFromCurrentVersion.Contains(entity))
-            {
-                var entityFromCurrentVersion = entitiesFromCurrentVersion.First(e => e == entity);
+            var entityFromCurrentVersion = entitiesFromCurrentVersion
+                .FirstOrDefault(e => e.Key == entity.Key && 
+                                     e.Value == entity.Value && 
+                                     e.Description == entity.Description);
 
-                if (entity.LastModified != entityFromCurrentVersion.LastModified)
-                {
-                    updatedEntities.Add(entityFromCurrentVersion);
-                }
+            if (entityFromCurrentVersion != null)
+            {
+                updatedEntities.Add(entityFromCurrentVersion);
             }
         }
 
         private void CheckIfEntityIsRemoved(Entity entity,
             ICollection<Entity> entitiesFromCurrentVersion, ICollection<Entity> removedEntities)
         {
-            if (!entitiesFromCurrentVersion.Contains(entity))
+            var entityFromCurrentVersion = entitiesFromCurrentVersion
+                .FirstOrDefault(e => e.Key == entity.Key &&
+                                     e.Value == entity.Value &&
+                                     e.Description == entity.Description);
+
+            if (entityFromCurrentVersion == null)
             {
                 removedEntities.Add(entity);
             }
@@ -73,7 +77,12 @@ namespace EntityExtracterTool.Web.Services
         private void CheckIfEntityIsAdded(Entity entity,
             ICollection<Entity> entitiesFromPreviousVersion, ICollection<Entity> addedEntities)
         {
-            if (!entitiesFromPreviousVersion.Contains(entity))
+            var entityFromPreviousVersion = entitiesFromPreviousVersion
+                .FirstOrDefault(e => e.Key == entity.Key &&
+                                     e.Value == entity.Value &&
+                                     e.Description == entity.Description);
+
+            if (entityFromPreviousVersion == null)
             {
                 addedEntities.Add(entity);
             }

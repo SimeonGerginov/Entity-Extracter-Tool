@@ -7,28 +7,32 @@
 <h2>Entity Information</h2>
 
 <div class="row">
-    @*<div class="col-md-4">
+    <div class="col-md-4">
         <h3>Added Entities</h3>
         <table class="table table-bordered">
             <tr>
-                <th>Entity Name</th>
                 <th>Entity Value</th>
+                <th>Entity Description</th>
+                <th>Entity Last Modified</th>
             </tr>
             @foreach (var entity in Model.AddedEntities)
             {
                 <tr>
                     <td>
-                        @entity.Name
+                        @entity.Value
                     </td>
                     <td>
-                        @entity.Value
+                        @entity.Description
+                    </td>
+                    <td>
+                        @entity.LastModified
                     </td>
                 </tr>
             }
         </table>
-    </div>*@
+    </div>
 
-    <div class="col-md-4">
+    @*<div class="col-md-4">
         <h3>Updated Entities</h3>
         <table class="table table-bordered">
             <tr>
@@ -47,26 +51,34 @@
                 </tr>
             }
         </table>
-    </div>
+    </div>*@
 
-    <div class="col-md-4">
+    @*<div class="col-md-4">
         <h3>Removed Entities</h3>
         <table class="table table-bordered">
             <tr>
                 <th>Entity Name</th>
                 <th>Entity Value</th>
+                <th>Entity Description</th>
+                <th>Entity Last Modified</th>
             </tr>
-            @foreach (var entity in Model.RemovedEntities)
+            @foreach (var entity in Model.RemovedEntities.Take(10))
             {
                 <tr>
                     <td>
-                        @entity.Name
+                        @entity.Key
                     </td>
                     <td>
                         @entity.Value
                     </td>
+                    <td>
+                        @entity.Description
+                    </td>
+                    <td>
+                        @entity.LastModified
+                    </td>
                 </tr>
             }
         </table>
-    </div>
+    </div>*@
 </div>
