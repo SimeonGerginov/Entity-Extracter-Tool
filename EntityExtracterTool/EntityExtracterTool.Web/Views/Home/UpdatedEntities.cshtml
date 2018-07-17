@@ -5,18 +5,18 @@
 @model IPagedList<Entity>
 
 @{
-    ViewBag.Title = "AddedEntities";
+    ViewBag.Title = "UpdatedEntities";
 }
 
 <h2 class="text-center">Entity Information</h2>
 
 <div class="text-center">
-    @Html.PagedListPager(Model, page => Url.Action("AddedEntities", new { page }))
+    @Html.PagedListPager(Model, page => Url.Action("UpdatedEntities", new { page }))
 </div>
 
 <div class="row">
     <div class="col-md-12">
-        <h3>Added Entities</h3>
+        <h3>Updated Entities</h3>
         <table class="table table-bordered">
             <tr>
                 <th class="text-center">Entity Key</th>

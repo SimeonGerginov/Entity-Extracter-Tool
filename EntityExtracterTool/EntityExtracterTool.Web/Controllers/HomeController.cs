@@ -48,5 +48,47 @@ namespace EntityExtracterTool.Web.Controllers
 
             return this.View(entitiesPerPage);
         }
+
+        public ActionResult UpdatedEntities(int? page)
+        {
+            var entityHolder = new EntityHolder()
+            {
+                AddedEntities = new List<Entity>(),
+                UpdatedEntities = new List<Entity>(),
+                RemovedEntities = new List<Entity>()
+            };
+
+            this.entityComparer.CompareEntities(entityHolder, Constants.PreviousVersion, Constants.CurrentVersion);
+
+            var updatedEntities = entityHolder
+                .UpdatedEntities
+                .OrderByDescending(e => e.LastModified);
+
+            var pageNumber = page ?? Constants.DefaultPage;
+            var entitiesPerPage = updatedEntities.ToPagedList(pageNumber, Constants.EntitiesPerPage);
+
+            return this.View(entitiesPerPage);
+        }
+
+        public ActionResult RemovedEntities(int? page)
+        {
+            var entityHolder = new EntityHolder()
+            {
+                AddedEntities = new List<Entity>(),
+                UpdatedEntities = new List<Entity>(),
+                RemovedEntities = new List<Entity>()
+            };
+
+            this.entityComparer.CompareEntities(entityHolder, Constants.PreviousVersion, Constants.CurrentVersion);
+
+            var removedEntities = entityHolder
+                .RemovedEntities
+                .OrderByDescending(e => e.LastModified);
+
+            var pageNumber = page ?? Constants.DefaultPage;
+            var entitiesPerPage = removedEntities.ToPagedList(pageNumber, Constants.EntitiesPerPage);
+
+            return this.View(entitiesPerPage);
+        }
     }
 }

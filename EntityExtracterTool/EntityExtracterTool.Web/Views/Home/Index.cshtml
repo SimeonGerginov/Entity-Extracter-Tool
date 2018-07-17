@@ -7,10 +7,8 @@
     For more information about the entities, please click the button!
 </p>
 
-<div class="row">
-    <div class="col-md-6">
-        <div>
-            @Html.ActionLink("Added Entities", "AddedEntities", "Home", null, new { @class = "btn btn-primary" })
-        </div>
-    </div>
+<div class="text-center">
+    @Html.ActionLink("Added Entities", "AddedEntities", "Home", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Updated Entities", "UpdatedEntities", "Home", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Removed Entities", "RemovedEntities", "Home", null, new { @class = "btn btn-primary" })
 </div>

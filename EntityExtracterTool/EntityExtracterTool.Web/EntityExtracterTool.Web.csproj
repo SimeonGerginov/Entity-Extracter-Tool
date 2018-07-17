@@ -239,6 +239,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\AddedEntities.cshtml" />
+    <Content Include="Views\Home\UpdatedEntities.cshtml" />
+    <Content Include="Views\Home\RemovedEntities.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
