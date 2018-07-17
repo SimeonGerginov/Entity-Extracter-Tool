@@ -1,0 +1,40 @@
+﻿@using EntityExtracterTool.Web.Models
+
+@model IEnumerable<Entity>
+
+@{
+    ViewBag.Title = "AddedEntities";
+}
+
+<h2 class="text-center">Entity Information</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <h3>Added Entities</h3>
+        <table class="table table-bordered">
+            <tr>
+                <th>Entity Key</th>
+                <th>Entity Value</th>
+                <th>Entity Description</th>
+                <th>Entity Last Modified</th>
+            </tr>
+            @foreach (var entity in Model)
+            {
+                <tr>
+                    <td>
+                        @entity.Key
+                    </td>
+                    <td>
+                        @entity.Value
+                    </td>
+                    <td>
+                        @entity.Description
+                    </td>
+                    <td>
+                        @entity.LastModified
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

@@ -12,12 +12,21 @@ namespace EntityExtracterTool.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IEntityComparer entityComparer;
+        private readonly EntityHolder entityHolder;
 
         public HomeController(IEntityComparer entityComparer)
         {
             Guard.WhenArgument(entityComparer, "Entity Comparer").IsNull().Throw();
 
             this.entityComparer = entityComparer;
+            this.entityHolder = new EntityHolder()
+            {
+                AddedEntities = new List<Entity>(),
+                UpdatedEntities = new List<Entity>(),
+                RemovedEntities = new List<Entity>()
+            };
+
+            this.entityComparer.CompareEntities(this.entityHolder, Constants.PreviousVersion, Constants.CurrentVersion);
         }
 
         public ActionResult Index()
@@ -25,18 +34,11 @@ namespace EntityExtracterTool.Web.Controllers
             return this.View();
         }
 
-        public ActionResult ShowEntityInformation()
+        public ActionResult AddedEntities()
         {
-            var entityHolder = new EntityHolder()
-            {
-                AddedEntities = new List<Entity>(),
-                UpdatedEntities = new List<Entity>(),
-                RemovedEntities = new List<Entity>()
-            };
+            var addedEntities = this.entityHolder.AddedEntities;
 
-            this.entityComparer.CompareEntities(entityHolder, Constants.PreviousVersion, Constants.CurrentVersion);
-
-            return this.View(entityHolder);
+            return this.View(addedEntities);
         }
     }
 }
