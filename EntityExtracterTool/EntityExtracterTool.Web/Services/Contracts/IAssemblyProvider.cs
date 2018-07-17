@@ -9,6 +9,6 @@ namespace EntityExtracterTool.Web.Services.Contracts
 
         string[] GetDllsInDirectory(string sitefinityVersion);
 
-        IEnumerable<Assembly> GetSitefinityAssemblies(string sitefinityVersion);
+        IDictionary<string, Assembly> GetSitefinityAssemblies(string sitefinityVersion);
     }
 }

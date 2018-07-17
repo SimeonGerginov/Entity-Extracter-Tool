@@ -10,6 +10,8 @@ namespace EntityExtracterTool.Web.Services
 {
     public class AssemblyProvider : IAssemblyProvider
     {
+        private readonly IDictionary<string, Assembly> assemblies = new Dictionary<string, Assembly>();
+
         public string GetDirectoryPath(string sitefinityVersion)
         {
             var firstPath = AppDomain.CurrentDomain.BaseDirectory;
@@ -28,22 +30,40 @@ namespace EntityExtracterTool.Web.Services
             return dllsInDirectory;
         }
 
-        public IEnumerable<Assembly> GetSitefinityAssemblies(string sitefinityVersion)
+        public IDictionary<string, Assembly> GetSitefinityAssemblies(string sitefinityVersion)
         {
-            var assemblies = new List<Assembly>();
+            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += this.ResolveAssembly;
+            AppDomain.CurrentDomain.AssemblyResolve += this.ResolveAssembly;
+
+            var appDomain = AppDomain.CreateDomain(sitefinityVersion);
+
             var dllsInDirectory = this.GetDllsInDirectory(sitefinityVersion);
 
             foreach (var dll in dllsInDirectory)
             {
-                var assembly = Assembly.LoadFile(dll);
-
-                if (assembly.FullName.Contains(Constants.SitefinityAssemblyName))
+                if (dll.Contains(Constants.SitefinityAssemblyName))
                 {
-                    assemblies.Add(assembly);
+                    var assembly = Assembly.LoadFile(dll);
+                    this.assemblies.Add(assembly.FullName, assembly);
                 }
+                //var assembly = Assembly.LoadFile(dll);
+
+                //if (assembly.FullName.Contains(Constants.SitefinityAssemblyName))
+                //{
+                //    this.assemblies.Add(assembly.FullName, assembly);
+                //}
             }
 
-            return assemblies;
+            return this.assemblies;
+        }
+
+        private Assembly ResolveAssembly(Object sender, ResolveEventArgs e)
+        {
+            Assembly result;
+
+            this.assemblies.TryGetValue(e.Name, out result);
+
+            return result;
         }
     }
 }
