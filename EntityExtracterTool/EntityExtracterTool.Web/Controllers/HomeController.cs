@@ -1,12 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 
-using Bytes2you.Validation;
-
 using EntityExtracterTool.Web.Common;
-using EntityExtracterTool.Web.Models;
-using EntityExtracterTool.Web.Services.Contracts;
+using EntityExtracterTool.Web.Providers;
 
 using PagedList;
 
@@ -14,15 +10,6 @@ namespace EntityExtracterTool.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IEntityComparer entityComparer;
-
-        public HomeController(IEntityComparer entityComparer)
-        {
-            Guard.WhenArgument(entityComparer, "Entity Comparer").IsNull().Throw();
-
-            this.entityComparer = entityComparer;
-        }
-
         public ActionResult Index()
         {
             return this.View();
@@ -30,14 +17,7 @@ namespace EntityExtracterTool.Web.Controllers
 
         public ActionResult AddedEntities(int? page)
         {
-            var entityHolder = new EntityHolder()
-            {
-                AddedEntities = new List<Entity>(),
-                UpdatedEntities = new List<Entity>(),
-                RemovedEntities = new List<Entity>()
-            };
-
-            this.entityComparer.CompareEntities(entityHolder, Constants.PreviousVersion, Constants.CurrentVersion);
+            var entityHolder = EntityHolderProvider.GetEntityHolder();
 
             var addedEntities = entityHolder
                 .AddedEntities
@@ -51,14 +31,7 @@ namespace EntityExtracterTool.Web.Controllers
 
         public ActionResult UpdatedEntities(int? page)
         {
-            var entityHolder = new EntityHolder()
-            {
-                AddedEntities = new List<Entity>(),
-                UpdatedEntities = new List<Entity>(),
-                RemovedEntities = new List<Entity>()
-            };
-
-            this.entityComparer.CompareEntities(entityHolder, Constants.PreviousVersion, Constants.CurrentVersion);
+            var entityHolder = EntityHolderProvider.GetEntityHolder();
 
             var updatedEntities = entityHolder
                 .UpdatedEntities
@@ -72,14 +45,7 @@ namespace EntityExtracterTool.Web.Controllers
 
         public ActionResult RemovedEntities(int? page)
         {
-            var entityHolder = new EntityHolder()
-            {
-                AddedEntities = new List<Entity>(),
-                UpdatedEntities = new List<Entity>(),
-                RemovedEntities = new List<Entity>()
-            };
-
-            this.entityComparer.CompareEntities(entityHolder, Constants.PreviousVersion, Constants.CurrentVersion);
+            var entityHolder = EntityHolderProvider.GetEntityHolder();
 
             var removedEntities = entityHolder
                 .RemovedEntities

@@ -196,6 +196,7 @@
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\EntityHolder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\EntityHolderProvider.cs" />
     <Compile Include="Services\AssemblyProvider.cs" />
     <Compile Include="Services\Contracts\IAssemblyProvider.cs" />
     <Compile Include="Services\Contracts\IEntityComparer.cs" />
